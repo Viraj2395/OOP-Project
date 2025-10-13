@@ -18,20 +18,7 @@ Commodity::~Commodity() {
 }
 
 bool Commodity::Update() {
-    if (pricesCount_ == 0) {
-        prices_ = new double[1];
-        prices_[0] = 100.0;
-        pricesCount_ = 1;
-        return true;
-    }
 
-    double current = prices_[pricesCount_ - 1];
-    static thread_local std::mt19937 rng(std::random_device{}());
-    std::normal_distribution<double> pct(0.0, 0.02); // ±2%
-    double next = std::max(0.1, current * (1.0 + pct(rng)));
-
-    pushPrice(next);
-    return true;
 }
 
 void Commodity::MakeGraph(double* pricesArray) {
