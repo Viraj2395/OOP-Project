@@ -6,6 +6,7 @@
 #include <random>
 #include <limits>
 #include <sstream>
+#include <cstdlib>
 
 struct Row
 {
@@ -27,6 +28,15 @@ double pct_step_for(const std::string &type){
     if(type == "Crypto") return 0.06;
     if (type == "Digital") return 0.012;
     return 0.015;
+}
+
+void clear_terminal() {
+
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
 }
 
 void next_day(std::vector<Row>& rows) {
@@ -53,7 +63,7 @@ void P_Table(const std::vector<Row>& rows, double coins, int day){
 
     std::cout << std::left  << setw(Wc) << "Commodity"
           << std::right << setw(Wp) << "Price"
-          << std::right << setw(Wd) << "ΔPrice"
+          << std::right << setw(Wd) << "~Price"
           << std::right << setw(Wq) << "Quantity Owned"
           << std::right << setw(Wt) << "Type" << "\n";
 
@@ -125,6 +135,7 @@ int main() {
                          "exit       -> quit\n";
         }
         else if (lc == "next") {
+            clear_terminal();
             next_day(rows);
             ++day;
         }
