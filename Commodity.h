@@ -1,34 +1,40 @@
 #ifndef COMMODITY_H
 #define COMMODITY_H
 
+#include <string>
+
 using namespace std;
 
 class Commodity{
     protected:
     int quantityOwned;
-    double prices[30]; //whats the size or shud this be a vector?
+    double* prices; 
+    string name;
+    string type;
 
     public:
 
     //constructors
     Commodity();
-    Commodity(int quantityOwned);
+    Commodity(int quantityOwned, string name, string type);
 
-
-    bool Buy(string commodity);
-    bool Sell(string commodity);
-
-    virtual bool Update();
-    void MakeGraph(); //virtual func?????????????
+    virtual bool Update()=0;
+    void MakeGraph(); 
 
     //getters
     int get_quantityOwned();
     double* get_prices();
+    string get_name();
+    string get_type();
 
     //setters
     void set_quantityOwned(int quantityOwned);
     void set_prices(double* prices);
+    void set_name(string name);
+    void set_type(string type);
 
+    //destructor
+    virtual ~Commodity();
 };
 
 

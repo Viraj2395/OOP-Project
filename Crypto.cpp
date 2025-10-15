@@ -1,0 +1,27 @@
+#include <string>
+#include "Crypto.h"
+#include "Commoditiy.h"
+#include "DigitalCommodities.h"
+
+using namespace std;
+
+    Crypto::Crypto():DigitalCommodities(){
+        this->trend="";
+    }
+    
+    Crypto::Crypto(string trend, int transactionFee, int quantityOwned, string name, string type): DigitalCommodities(transactionFee, quantityOwned, name, type){
+        this->trend=trend;
+    }
+
+    bool Crypto::Update(){
+        //insert code
+        return true;
+    }
+
+    string Crypto::get_trend(){
+        return trend;
+    }
+
+    void Crypto::set_trend(string trend){
+        this->trend=trend;
+    }
