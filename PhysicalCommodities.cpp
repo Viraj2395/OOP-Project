@@ -11,6 +11,10 @@ PhysicalCommodities::PhysicalCommodities(int storageCost, int quantityOwned, str
     this->storageCost=storageCost;
 }
 
+PhysicalCommodities::PhysicalCommodities(int storageCost, int quantityOwned, string name, string type, double stats[3]):Commodity(quantityOwned,name,type,stats){
+    this->storageCost=storageCost;
+}
+
 int PhysicalCommodities::get_storageCost(){
     return storageCost;
 }

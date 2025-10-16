@@ -1,25 +1,34 @@
 #include <iostream>
+#include <random>
+#include <matplot/matplot.h>
+using namespace matplot;
 
 int main(){
     // St = Prices at time t. S is varialbe for Price dependant on varialbe t
     double prices[30];
     for (int i = 0; i < 30; i++){
-        prices[i]=i;
+        prices[i]=100;
     }
 
+    std::random_device rd;  
+    std::mt19937 gen(rd());  // Mersenne Twister RNG
+
+    // Normal distribution with mean 0 and standard deviation 1
+    std::normal_distribution<double> dist(0.0, 1.0);
+
     // Mu = drift: Expected increase over time
-    double mu = 0.04;
+    double mu = 0.015;
 
     // Sigma = volatility: Proportional Standard Deviation of price change
-    double sigma = 0.25;
+    double sigma = 0.07;
 
-    // dWt = Random Change estimated dwt ~ Z(0,1)
-    double dWt = 0.2;
+    for(int j = 0; j<29; j++){
+            // dWt = Random Change estimated dwt ~ Z(0,1)
+            double dWt = dist(gen);
 
-    // SDE dS = Mu * St * dt + Sigma * St * dWt
-    double dS = mu * prices[29] * 1 + sigma * prices[29] * dWt;
+            // SDE dS = Mu * St * dt + Sigma * St * dWt
+            double dS = mu * prices[29] * 1 + sigma * prices[29] * dWt;
 
-    for(int j = 0; j<30; j++){
         for (int i = 0; i < 29; i++)
         {
             prices[i] = prices[i+1];
@@ -27,10 +36,12 @@ int main(){
         
         prices[29] += dS;
     }  
-    
+
     for (int i = 0; i< 30; i++){
         std::cout<< prices[i] << "\n";
     }
+
+
 
     return(0);
 }

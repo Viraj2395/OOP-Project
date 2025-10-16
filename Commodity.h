@@ -2,6 +2,8 @@
 #define COMMODITY_H
 
 #include <string>
+#include <iostream>
+#include <random>
 
 using namespace std;
 
@@ -17,6 +19,7 @@ class Commodity{
     //constructors
     Commodity();
     Commodity(int quantityOwned, string name, string type);
+    Commodity(int quantityOwned, string name, string type, double stats[3]);
 
     virtual bool Update()=0;
     void MakeGraph(); 

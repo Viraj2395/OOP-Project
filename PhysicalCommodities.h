@@ -13,6 +13,7 @@ class PhysicalCommodities : public Commodity{
 
     PhysicalCommodities();
     PhysicalCommodities(int storageCost, int quantityOwned, string name, string type);
+    PhysicalCommodities(int storageCost, int quantityOwned, string name, string type, double stats[3]);
 
     int get_storageCost();
     void set_storageCost(int storageCost);
