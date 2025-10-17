@@ -1,6 +1,29 @@
 {
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
-        "string": "cpp"
+        "string": "cpp",
+        "__verbose_abort": "cpp",
+        "cctype": "cpp",
+        "cmath": "cpp",
+        "cstddef": "cpp",
+        "cstdint": "cpp",
+        "cstdio": "cpp",
+        "cstdlib": "cpp",
+        "cstring": "cpp",
+        "cwchar": "cpp",
+        "cwctype": "cpp",
+        "execution": "cpp",
+        "memory": "cpp",
+        "initializer_list": "cpp",
+        "iosfwd": "cpp",
+        "limits": "cpp",
+        "new": "cpp",
+        "stdexcept": "cpp",
+        "string_view": "cpp",
+        "typeinfo": "cpp",
+        "variant": "cpp",
+        "algorithm": "cpp",
+        "iomanip": "cpp",
+        "ios": "cpp"
     }
 }

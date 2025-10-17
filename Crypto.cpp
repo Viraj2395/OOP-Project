@@ -1,6 +1,6 @@
 #include <string>
 #include "Crypto.h"
-#include "Commoditiy.h"
+#include "Commodity.h"
 #include "DigitalCommodities.h"
 
 using namespace std;
