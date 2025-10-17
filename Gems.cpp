@@ -14,9 +14,13 @@ using namespace std;
         this->economicCycle=economicCycle;
     }
 
-    bool Gems::Update(){
+    void Gems::Update(){
+        
+        for(int i = 0; i < 29; i++){
+            this->prices[i] = this->prices[i+1]            
+        }
+        this->prices[29] +=1
         //insert code
-        return true;
     }
 
     string Gems::get_economicCycle(){

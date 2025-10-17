@@ -14,10 +14,13 @@ using namespace std;
         this->season=season;
     }
 
-    bool Harvest::Update(){
+    void Harvest::Update(){
+        for(int i = 0; i < 29; i++){
+            this->prices[i] = this->prices[i+1]            
+        }
+        this->prices[29] +=1
         //insert code
-        return true;
-    }
+        }
 
     string Harvest::get_season(){
         return season;

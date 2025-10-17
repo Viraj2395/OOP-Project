@@ -21,7 +21,7 @@ class Commodity{
     Commodity(int quantityOwned, string name, string type);
     Commodity(int quantityOwned, string name, string type, double stats[3]);
 
-    virtual bool Update()=0;
+    virtual void Update()=0;
     void MakeGraph(); 
 
     //getters

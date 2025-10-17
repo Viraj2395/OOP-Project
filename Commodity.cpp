@@ -60,7 +60,6 @@ using namespace std;
 
     }
 
-
     void Commodity::MakeGraph(){
         //make graph using prices array
     }

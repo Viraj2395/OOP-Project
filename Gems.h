@@ -15,7 +15,7 @@ class Gems: public PhysicalCommodities{
     Gems();
     Gems(string economicCycle, int storageCost, int quantityOwned, string name, string type);
 
-    bool Update();
+    void Update();
 
     string get_economicCycle();
     void set_economicCycle(string economicCycle);    

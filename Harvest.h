@@ -14,7 +14,7 @@ class Harvest: public PhysicalCommodities{
     Harvest();
     Harvest(string season, int storageCost, int quantityOwned, string name, string type);
 
-    bool Update(); 
+    void Update(); 
 
     string get_season();
     void set_season(string season);    
