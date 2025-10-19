@@ -15,10 +15,12 @@ using namespace std;
     }
 
     void Harvest::Update(){
+        if (prices == nullptr) return; 
+
         for(int i = 0; i < 29; i++){
-            this->prices[i] = this->prices[i+1]            
+            this->prices[i] = this->prices[i+1];          
         }
-        this->prices[29] +=1
+        this->prices[29] +=1;
         //insert code
         }
 

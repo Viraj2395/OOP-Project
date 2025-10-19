@@ -7,12 +7,14 @@ using namespace std;
         this->quantityOwned=0;
         this->name="";
         this->type="";
+        this->prices= nullptr;
     }
 
     Commodity::Commodity(int quantityOwned, string name, string type){
         this->quantityOwned=quantityOwned;
         this->name=name;
         this->type=type;
+        this->prices= nullptr;
     }
 
 
