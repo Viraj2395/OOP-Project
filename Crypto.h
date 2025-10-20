@@ -14,7 +14,7 @@ class Crypto: public DigitalCommodities{
     Crypto();
     Crypto(string trend, int transactionFee, int quantityOwned, string name, string type);
 
-    bool Update();
+    void Update();
 
     string get_trend();
     void set_trend(string trend);    
