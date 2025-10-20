@@ -31,11 +31,18 @@ class Game{
     
     // Setup commodities array
     void initCommodities();
-    
+
     // Main game loop
     void run();
 
 };
+
+
+// Forward declaration to help functions
+void showPortfolio(Commodity* commodities[], int n, int coins);
+void showHelp();
+void handleCommand(const string& command, Commodity* commodities[], int n, int& coins, int& day);
+
 
 #endif
 
