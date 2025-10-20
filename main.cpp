@@ -21,7 +21,7 @@ void print_market_table(Commodity* commodities[], int n, int coins, int day) {
     std::cout << " TRADING GAME - Day" << day << " - coins: " << coins << "\n\n";
     std::cout << std::left << std::setw(12) << "Commodity"
               << std::right << std::setw(8) << "Price"
-              << std::right << std::setw(8) << "ΔPrice"
+              << std::right << std::setw(12) << "N-Price"
               << std::right << std::setw(16) << "Quantity Owned"
               << std::right << std::setw(10) << "Type" << "\n";
     std::cout << "------------------------------------------------------------\n";
@@ -53,7 +53,124 @@ void print_market_table(Commodity* commodities[], int n, int coins, int day) {
         print_market_table(commodities, n, coins, day);
     }
     else if (command == "commodity") {
-        // Handle commodity trading logic
+        int choice = -1;
+
+        if (!(std::cin>>choice))
+        {
+            std::cin.clear();
+            std::cin.ignore(10000,'\n');
+            std::cout<< "invalide output.\n";
+            print_market_table(commodities, n, coins, day);
+            return;
+        }
+
+        if (choice == 0)    
+        {
+            print_market_table(commodities, n, coins, day);
+            return;
+        }
+        if (choice < 1 || choice >n)
+        {
+            std::cout<< "invalid choice. \n";
+            print_market_table(commodities, n, coins, day);
+            return;
+        }
+
+        int idx = choice -1; // Making index according to array
+        Commodity* item = commodities[idx];
+
+        for (;;) // infinite loop until user types "back"
+        {
+            double price = item->get_prices()[29];
+            int owned = item->get_quantityOwned();
+
+            std::cout <<"\n[ " <<item->get_name() << "] Price: "<<std::fixed<< std::setprecision(2) <<price
+            << " Owed: "<< owned
+            << " Coins: " <<coins
+            <<"\nActions : buy | sell | back\n ";
+            
+            std::string action;
+            if (!(std::cin>>action))
+            {
+                std::cin.clear();
+                std::cin.ignore(10000, '\n'); //Discard the rest of the line
+                std::cout<<"Invalid quantity. \n";
+                continue;
+            }
+            if (action == "back")
+            {
+                //Return to the market view
+                print_market_table(commodities, n, coins, day); // Re-render the market
+                return; 
+            }
+            else if(action == "buy"){
+                std::cout<< "Quantity to buy: ";
+                int qty;
+                if (!(std::cin>>qty))
+                {
+                    std::cin.clear();
+                    std::cin.ignore(10000, '\n'); //Discard the rest of the line
+                    std::cout<<"Invalid quantity. \n";
+                    continue;
+                }
+                if (qty<=0)
+                {
+                    std::cout<<"Quantity must be positive and more than 0. \n";
+                    continue;
+                }
+                double cost = price*qty;
+                if (cost>coins)
+                {
+                    std::cout << "Not enough coins (need " << std::fixed << std::setprecision(2)
+                    << cost << ").\n";
+                    continue;
+                }
+                //Buy Logic
+                coins = coins - cost;
+                item->set_quantityOwned(owned+qty);
+                std::cout << "Bought " << qty << " " << item->get_name()
+                << ". Coins left: " << std::fixed << std::setprecision(2) << coins << "\n";
+            }
+            else if (action == "sell")
+            {
+                std::cout<< "Quantity to sell: ";
+                int qty;
+                if (!(std::cin >> qty)) {              
+                    std::cin.clear();
+                    std::cin.ignore(10000, '\n');
+                    std::cout << "Invalid quantity.\n";
+                    continue; 
+                }
+                if (qty <= 0) {                         
+                    std::cout << "Quantity must be positive.\n";
+                    continue;
+                }
+                if (qty > owned) {                      
+                 std::cout << "You only own " << owned << ".\n";
+                 continue;
+                }
+                double revenue = price * qty;
+                item->set_quantityOwned(owned - qty);
+                coins = coins + revenue;
+                std::cout << "Sold " << qty << " " << item->get_name()
+                << ". Coins now: " << std::fixed << std::setprecision(2) << coins << "\n";
+
+                
+                
+            }
+            
+            else{
+                std::cout<<"Choose the correct option";
+            }
+            
+            
+        }
+        
+
+
+        
+        
+        
     }
     else if (command == "help") {
         // Show help message
@@ -67,7 +184,7 @@ void print_market_table(Commodity* commodities[], int n, int coins, int day) {
 }
 
     int main() {
-        const int NumberOfCommodities = 7;
+        const int NumberOfCommodities = 6;
         int coins = 1000;
         int day = 1;
         Commodity* commodities[NumberOfCommodities];
@@ -84,7 +201,7 @@ void print_market_table(Commodity* commodities[], int n, int coins, int day) {
 
         // Clean up
         for (int i = 0; i < NumberOfCommodities; ++i) {
-            delete commodities[i];
+            if (commodities[i]) delete commodities[i];
         }
         return 0;
     }
