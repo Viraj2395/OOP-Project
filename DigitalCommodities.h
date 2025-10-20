@@ -12,6 +12,7 @@ class DigitalCommodities : public Commodity{
     public:
     DigitalCommodities();
     DigitalCommodities(int transactionFee, int quantityOwned, string name, string type);
+    DigitalCommodities(int transactionFee, int quantityOwned, string name, string type, double stats[3]);
 
     int get_transactionFee();
     void set_transactionFee(int transactionfee);

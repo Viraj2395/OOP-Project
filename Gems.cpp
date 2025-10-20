@@ -17,12 +17,25 @@ using namespace std;
     void Gems::Update(){
         if (prices == nullptr) return; 
         
+        double mu = 0.03;
+
+        double sigma = 0.15;
+
+        std::random_device rd;  
+        std::mt19937 gen(rd());  // Mersenne Twister RNG
+
+        // Normal distribution with mean 0 and standard deviation 1
+        std::normal_distribution<double> dist(0.0, 1.0);
+
+        double dWt = dist(gen);
+
+        double dS = mu * this->prices[29] * 1 + sigma * this->prices[29] * dWt;        
+
         for(int i = 0; i < 29; i++){
-            this->prices[i] = this->prices[i+1];            
+            this->prices[i] = this->prices[i+1];          
         }
-        this->prices[29] +=1;
-        //insert code
-    }
+        this->prices[29] += dS;
+        }
 
     string Gems::get_economicCycle(){
         return economicCycle;
