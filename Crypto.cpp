@@ -16,9 +16,9 @@ using namespace std;
     void Crypto::Update(){
         if (prices == nullptr) return; 
         
-        int mu = 0.05;
+        double mu = 0.05;
 
-        int sigma = 0.4;
+        double sigma = 0.4;
 
         std::random_device rd;  
         std::mt19937 gen(rd());  // Mersenne Twister RNG
@@ -33,7 +33,7 @@ using namespace std;
         for(int i = 0; i < 29; i++){
             this->prices[i] = this->prices[i+1];          
         }
-        this->prices[29] += ds;
+        this->prices[29] += dS;
         }
 
     string Crypto::get_trend(){

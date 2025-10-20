@@ -7,7 +7,7 @@ using namespace std;
 DigitalCommodities::DigitalCommodities():Commodity(){
     this->transactionFee=0;
 }
-DigitalCommodities::DigitalCommodities(int transactionFee, int quantityOwned, string name, string type, double stats[3]):Commodity(quantityOwned,name,type,stats[3]){
+DigitalCommodities::DigitalCommodities(int transactionFee, int quantityOwned, string name, string type, double stats[3]):Commodity(quantityOwned,name,type,stats){
     this->transactionFee=transactionFee;
 }
 

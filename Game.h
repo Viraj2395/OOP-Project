@@ -28,6 +28,12 @@ class Game{
     //setters
     void set_day(int day);
     void set_coins(int coins);
+    
+    // Setup commodities array
+    void initCommodities();
+    
+    // Main game loop
+    void run();
 
 };
 

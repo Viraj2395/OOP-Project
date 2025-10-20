@@ -17,9 +17,9 @@ using namespace std;
     void Harvest::Update(){
         if (prices == nullptr) return; 
 
-        int mu = 0.015;
+        double mu = 0.015;
 
-        int sigma = 0.07;
+        double sigma = 0.07;
 
         std::random_device rd;  
         std::mt19937 gen(rd());  // Mersenne Twister RNG
@@ -34,7 +34,7 @@ using namespace std;
         for(int i = 0; i < 29; i++){
             this->prices[i] = this->prices[i+1];          
         }
-        this->prices[29] += ds;
+        this->prices[29] += dS;
         }
 
     string Harvest::get_season(){

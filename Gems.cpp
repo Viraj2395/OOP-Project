@@ -17,9 +17,9 @@ using namespace std;
     void Gems::Update(){
         if (prices == nullptr) return; 
         
-        int mu = 0.03;
+        double mu = 0.03;
 
-        int sigma = 0.15;
+        double sigma = 0.15;
 
         std::random_device rd;  
         std::mt19937 gen(rd());  // Mersenne Twister RNG
@@ -34,7 +34,7 @@ using namespace std;
         for(int i = 0; i < 29; i++){
             this->prices[i] = this->prices[i+1];          
         }
-        this->prices[29] += ds;
+        this->prices[29] += dS;
         }
 
     string Gems::get_economicCycle(){
