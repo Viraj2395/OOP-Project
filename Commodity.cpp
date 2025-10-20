@@ -56,10 +56,6 @@ using namespace std;
             this->prices[29] += dS;
         }  
 
-        for (int i = 0; i< 30; i++){
-            std::cout<< prices[i] << "\n";
-        }
-
     }
 
     void Commodity::MakeGraph(){
