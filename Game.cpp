@@ -3,7 +3,6 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
-#include "Commodity.h"
 #include "Crypto.h"
 #include "DigitalCommodities.h"
 #include "Game.h"

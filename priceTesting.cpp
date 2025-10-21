@@ -1,5 +1,7 @@
 #include <iostream>
 #include <random>
+#include <cmath>
+
 
 int main(){
     // St = Prices at time t. S is varialbe for Price dependant on varialbe t
@@ -35,9 +37,26 @@ int main(){
         prices[29] += dS;
     }  
 
+    double maxValue = prices[0];
+    for (int i = 1; i < 30; i++)
+    {
+        if(prices[i]>maxValue){
+            maxValue = prices[i];
+        }
+    }
+
+    int yValues[30];
+    for (int i = 0; i < 30; i++){
+        yValues[i]=prices[i]/maxValue * 15;
+    }    
+
+
     for (int i = 0; i< 30; i++){
         std::cout<< prices[i] << "\n";
+        std::cout<< yValues[i] << "\n";
     }
+
+    std::cout<< maxValue << "\n";
 
     int lenG = 100;
 
@@ -69,7 +88,6 @@ int main(){
     }
     
     std::cout<<"┘\n";
-
 
     return(0);
 }
