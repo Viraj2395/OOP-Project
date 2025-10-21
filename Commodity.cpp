@@ -59,36 +59,75 @@ using namespace std;
     }
 
     void Commodity::MakeGraph(){
-        int lenG = 100;
-
-        std::cout<<"┌";    
-
-        for (int i = 0; i < lenG; i++)
-        {
-            std::cout<<"─";
+    double maxValue = this->prices[0];
+    for (int i = 1; i < 30; i++)
+    {
+        if(this->prices[i]>maxValue){
+            maxValue = this->prices[i];
         }
-        
-        std::cout<<"┐\n";
+    }
+
+    int yValues[30];
+    for (int i = 0; i < 30; i++){
+        yValues[i]=this->prices[i]/maxValue * 15;
+    }    
 
 
-        for(int k=0; k<15; k++){
-            std::cout<<"|";
-            for (int j = 0; j < lenG; j++)
-            {
-                std::cout<<" ";
+    int lenG = 100;
+
+    std::cout<<"┌";    
+
+    for (int i = 0; i < lenG; i++)
+    {
+        std::cout<<"─";
+    }
+    
+    std::cout<<"┐\n";
+
+
+    for(int k=0; k<15; k++){
+        std::cout<<"|";
+        for (int j = 0; j < 6; j++)
+        {
+            std::cout<<" ";
+        }
+
+        if(yValues[0]==15-k){
+            std::cout<<"*";
+        }
+        else{
+            std::cout<<" ";
+        }
+
+        for(int i = 1; i<30; i++){
+            std::cout<<"  ";
+            if(yValues[i]==15-k){
+                std::cout<<"*";
             }
-            std::cout<<"|\n";
+            else{
+                std::cout<<" ";
+            }            
         }
 
 
-        std::cout<<"└";    
-
-        for (int i = 0; i < lenG; i++)
+        for (int j = 0; j < 6; j++)
         {
-            std::cout<<"─";
+            std::cout<<" ";
         }
-        
-        std::cout<<"┘\n";
+
+
+        std::cout<<"|\n";
+    }
+
+
+    std::cout<<"└";    
+
+    for (int i = 0; i < lenG; i++)
+    {
+        std::cout<<"─";
+    }
+    
+    std::cout<<"┘\n";
 
     }
 
