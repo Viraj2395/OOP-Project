@@ -7,7 +7,6 @@
 #include "Harvest.h"
 #include <cstdlib> 
 #include <fstream> 
-//is change day and set day the same thing 
 
 using namespace std;
 
