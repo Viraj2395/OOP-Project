@@ -215,6 +215,8 @@ void handleBuy(Commodity* item, int &coins){
             cout << "Your Cash: " << coins << " coins\n";
             cout << "Your Position Value: " << std::fixed << std::setprecision(2) << (owned * price) << " coins\n";
         
+            item->MakeGraph();
+
             cout << "\nActions: buy | sell | back | market\n";
             cout << "Enter action: ";
 
