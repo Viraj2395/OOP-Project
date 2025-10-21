@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
+#include "Commodity.h"
 #include "Crypto.h"
 #include "DigitalCommodities.h"
 #include "Game.h"
@@ -11,7 +12,7 @@
 #include "PhysicalCommodities.h"
 #include <cstdlib> 
 #include <fstream> 
-//is change day and set day the same thing 
+
 
 using namespace std;
 
@@ -128,7 +129,7 @@ void handleBuy(Commodity* item, int &coins){
     }
         if (qty <= 0)
         {
-            cout<<"Quantity must be positive and none zero.\n";
+            cout<<"Quantity must be positive and non-zero.\n";
             return;    
         }
 
@@ -214,8 +215,6 @@ void handleBuy(Commodity* item, int &coins){
             cout << "Your Cash: " << coins << " coins\n";
             cout << "Your Position Value: " << std::fixed << std::setprecision(2) << (owned * price) << " coins\n";
         
-            item->MakeGraph();
-
             cout << "\nActions: buy | sell | back | market\n";
             cout << "Enter action: ";
 
@@ -358,7 +357,7 @@ void handleBuy(Commodity* item, int &coins){
     ifstream file(filename);
     
     if (!file.is_open()) {
-        cout << "Could not load saved game!\n";
+        cout << "Could not load saved game.\n";
         return;
     }
     
@@ -425,10 +424,10 @@ void handleBuy(Commodity* item, int &coins){
     commodities[0] = new Harvest("Spring", 10, 0, "Wheat", "Harvest");
     commodities[1] = new Harvest("Summer", 10, 0, "Rice", "Harvest");
     commodities[2] = new Harvest("Autumn", 10, 0, "Corn", "Harvest");
-    commodities[3] = new Gems("XYZ", 5, 0, "Gold", "Gem");
-    commodities[4] = new Gems("XYZ", 5, 0, "Silver", "Gem");
-    commodities[5] = new Gems("XYZ", 5, 0, "Platinum", "Gem");
-    commodities[6] = new Crypto("Uptrend", 2, 0, "Ethereum", "Crypto");
+    commodities[3] = new Gems("boom", 5, 0, "Gold", "Gem");
+    commodities[4] = new Gems("recession", 5, 0, "Silver", "Gem");
+    commodities[5] = new Gems("recovery", 5, 0, "Platinum", "Gem");
+    commodities[6] = new Crypto("Uptrend", 2, 0, "Bitcoin", "Crypto");
 }
 
     void print_market_table(Commodity* commodities[], int n, int coins, int day); 
@@ -480,6 +479,7 @@ void print_market_table(Commodity* commodities[], int n, int coins, int day) {
 
     handleCommand(command, commodities, n, coins, day);
 }
+
 
 
 
