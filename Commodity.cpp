@@ -84,6 +84,17 @@ using namespace std;
     
     std::cout<<"┐\n";
 
+    std::cout<<"|";
+    for (int i = 0; i < 44; i++)
+    {
+        std::cout<<" ";
+    }
+    std::cout<<"Day vs Price";
+    for (int i = 0; i < 44; i++)
+    {
+        std::cout<<" ";
+    }    
+    std::cout<<"|\n";
 
     for(int k=0; k<15; k++){
         std::cout<<"|";
