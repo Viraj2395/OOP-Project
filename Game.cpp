@@ -11,11 +11,13 @@
 #include "Harvest.h"
 #include "PhysicalCommodities.h"
 #include <cstdlib> 
+#include <fstream> 
 //is change day and set day the same thing 
 
 using namespace std;
 
-
+void saveGame(const string& filename, int coins, int day, Commodity* commodities[], int n);
+void loadGame(const string& filename, int& coins, int& day, Commodity* commodities[], int n);
 void print_market_table(Commodity* commodities[], int n, int coins, int day);
 
 // For case sensitive input
@@ -76,6 +78,8 @@ void showHelp() {
     cout << "  next      - Advance to next day and update prices\n";
     cout << "  commodity - Buy/sell specific commodities\n";
     cout << "  portfolio - View your current holdings and value\n";
+    cout << "  save      - Save your game progress\n";        
+    cout << "  load      - Load a saved game\n";             
     cout << "  help      - Show this help message\n";
     cout << "  exit      - Quit the game\n\n";
     
@@ -218,6 +222,7 @@ void handleBuy(Commodity* item, int &coins){
 
             if (action == "back")
             {
+                print_market_table(commodities, n, coins, day);
                 return;
             }
 
@@ -256,6 +261,7 @@ void handleBuy(Commodity* item, int &coins){
         cout << "Invalid input.\n";
         cout << "Press Enter to continue...";
         cin.get();
+        handleCommodityMenu(commodities, n, coins, day);
         return;
     }
     
@@ -264,6 +270,7 @@ void handleBuy(Commodity* item, int &coins){
         cout << "Invalid choice.\n";
         cout << "Press Enter to continue...";
         cin.get();
+        handleCommodityMenu(commodities, n, coins, day); 
         return;
     }
     
@@ -296,7 +303,20 @@ void handleBuy(Commodity* item, int &coins){
             cin.ignore();
             cin.get();
         }
+        else if (command == "save") {
+            saveGame("savegame.txt", coins, day, commodities, n);
+            cout << "Press Enter to continue...";
+            cin.ignore();
+            cin.get();
+         }
+        else if (command == "load") {
+            loadGame("savegame.txt", coins, day, commodities, n);
+            cout << "Press Enter to continue...";
+            cin.ignore();
+            cin.get();
+        }
             else if (command == "exit") {
+            showPortfolio(commodities, n, coins);
             return;
         }
         else {
@@ -309,6 +329,61 @@ void handleBuy(Commodity* item, int &coins){
     print_market_table(commodities, n, coins, day);
         
     }
+
+    
+
+    void saveGame(const string& filename, int coins, int day, Commodity* commodities[], int n) {
+    ofstream file(filename);
+    
+    if (!file.is_open()) {
+        cout << "Error: Could not save game!\n";
+        return;
+    }
+    
+    file << coins << "\n";
+    file << day << "\n";
+    
+    for (int i = 0; i < n; i++) {
+        file << commodities[i]->get_name() << " "
+             << commodities[i]->get_quantityOwned() << " "
+             << commodities[i]->get_prices()[29] << "\n";
+    }
+    
+    file.close();
+    cout << "Game saved successfully!\n";
+}
+
+    void loadGame(const string& filename, int& coins, int& day, Commodity* commodities[], int n) {
+    ifstream file(filename);
+    
+    if (!file.is_open()) {
+        cout << "Could not load saved game!\n";
+        return;
+    }
+    
+    file >> coins;
+    file >> day;
+    
+    string name;
+    int quantity;
+    double price;
+    
+    for (int i = 0; i < n; i++) {
+        file >> name >> quantity >> price;
+        
+        for (int j = 0; j < n; j++) {
+            if (commodities[j]->get_name() == name) {
+                commodities[j]->set_quantityOwned(quantity);
+                double* prices = commodities[j]->get_prices();
+                prices[29] = price;
+                break;
+            }
+        }
+    }
+    
+    file.close();
+    cout << "Game loaded successfully!\n";
+}
 
     //constructors
     Game::Game(){
@@ -396,7 +471,7 @@ void print_market_table(Commodity* commodities[], int n, int coins, int day) {
     }
     
 
-    std::cout << "\nCommands: next | commodity | portfolio | help | exit\n";
+    std::cout << "\nCommands: next | commodity | portfolio | save | load | help | exit\n";
     std::string command;
     std::cout << "Enter command: ";
     

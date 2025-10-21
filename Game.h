@@ -13,7 +13,7 @@ class Game{
     public:
 
     bool Buy(string commodity);
-    bool Sell(string commodity);
+    bool Sell(string commodity);//Is it okay If I remove this
 
     //constructors
     Game();
