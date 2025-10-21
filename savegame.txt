@@ -1,0 +1,9 @@
+401
+1
+Wheat 0 436.701
+Rice 3 199.523
+Corn 0 80.5846
+Gold 0 469.248
+Silver 0 1027.52
+Platinum 0 834.066
+Ethereum 0 549.236
