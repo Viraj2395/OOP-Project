@@ -180,12 +180,12 @@ void handleBuy(Commodity* item, int &coins){
         
         // Calculate fees based on commodity type
         int fee = 0;
-        PhysicalCommodities* physical = dynamic_cast<PhysicalCommodities*>(item);
         DigitalCommodities* digital = dynamic_cast<DigitalCommodities*>(item);
         
         if (digital) {
             fee = digital->get_transactionFee();
         }
+  
         
         cout << "Current price: " << std::fixed << std::setprecision(2) << price << "\n";
         if (fee > 0) {
