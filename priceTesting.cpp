@@ -70,12 +70,37 @@ int main(){
     std::cout<<"┐\n";
 
 
-    for(int k=1; k<16; k++){
+    for(int k=0; k<15; k++){
         std::cout<<"|";
-        for (int j = 0; j < lenG; j++)
+        for (int j = 0; j < 6; j++)
         {
             std::cout<<" ";
         }
+
+        if(yValues[0]==15-k){
+            std::cout<<"*";
+        }
+        else{
+            std::cout<<" ";
+        }
+
+        for(int i = 1; i<30; i++){
+            std::cout<<"  ";
+            if(yValues[i]==15-k){
+                std::cout<<"*";
+            }
+            else{
+                std::cout<<" ";
+            }            
+        }
+
+
+        for (int j = 0; j < 6; j++)
+        {
+            std::cout<<" ";
+        }
+
+
         std::cout<<"|\n";
     }
 
