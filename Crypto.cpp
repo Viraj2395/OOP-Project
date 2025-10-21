@@ -16,7 +16,7 @@ using namespace std;
     void Crypto::Update(){
         if (prices == nullptr) return; 
         
-        double mu = 0.05
+        double mu = 0.05;
 
         double sigma = 0.4;
 
