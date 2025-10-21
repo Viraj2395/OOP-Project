@@ -33,9 +33,9 @@ string getLowerCaseInput(){
 //For clearing terminal
 void clearScreen(){
     #ifndef _WIN32
-        system("clas");
-    #else
         system("clear");
+    #else
+        system("cls");
     #endif
 }
 
