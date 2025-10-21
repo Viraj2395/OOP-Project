@@ -281,6 +281,9 @@ void handleBuy(Commodity* item, int &coins){
                 commodities[i]->Update();
             }
             day++;
+            for (int i 0; i < 6; i++){
+                coins -= commodities[i]->get_quantityOwned*commodities[i]->get_storage_cost;
+            }
         }
         else if (command == "commodity")
         {
