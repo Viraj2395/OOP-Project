@@ -9,7 +9,7 @@ using namespace std;
         this->trend="";
     }
     
-    Crypto::Crypto(string trend, int transactionFee, int quantityOwned, string name, string type): DigitalCommodities(transactionFee, quantityOwned, name, type, new (double[3]){1500,0.05, 0.4}){
+    Crypto::Crypto(string trend, int transactionFee, int quantityOwned, string name, string type): DigitalCommodities(transactionFee, quantityOwned, name, type, (double[3]){1500,0.05, 0.4}){
         this->trend=trend;
     }
 

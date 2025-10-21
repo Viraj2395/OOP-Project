@@ -1,18 +1,15 @@
-#include "Game.h"
-#include "Commodity.h"
 #include <iostream>
 #include <cmath>
 #include <iomanip>
 #include "Commodity.h"
 #include "Crypto.h"
-#include "DigitalCommodities.h"
 #include "Game.h"
 #include "Gems.h"
 #include "Harvest.h"
 #include "PhysicalCommodities.h"
+#include "DigitalCommodities.h"
 #include <cstdlib> 
 #include <fstream> 
-
 
 using namespace std;
 
@@ -34,9 +31,9 @@ string getLowerCaseInput(){
 //For clearing terminal
 void clearScreen(){
     #ifndef _WIN32
-        system("clas");
-    #else
         system("clear");
+    #else
+        system("cls");
     #endif
 }
 
@@ -92,7 +89,20 @@ void showHelp() {
 
 void handleBuy(Commodity* item, int &coins){
     double price = item->get_prices()[29];
-    int maxAffordable = static_cast<int>(coins/price);
+    
+    // Calculate fees based on commodity type
+    int fee = 0;
+    PhysicalCommodities* physical = dynamic_cast<PhysicalCommodities*>(item);
+    DigitalCommodities* digital = dynamic_cast<DigitalCommodities*>(item);
+    
+    if (physical) {
+        fee = physical->get_storageCost();
+    } else if (digital) {
+        fee = digital->get_transactionFee();
+    }
+    
+    double totalPricePerUnit = price + fee;
+    int maxAffordable = static_cast<int>(coins/totalPricePerUnit);
     //This will convert fraction in int ("Find how many whole items the playter can afford with 
     //Their current coins, given the item price, and store that as an integer. ")
 
@@ -103,6 +113,14 @@ void handleBuy(Commodity* item, int &coins){
     }
     
     cout << "Current price: "<<std::fixed<<std::setprecision(2)<<price<<"\n";
+    if (fee > 0) {
+        if (physical) {
+            cout << "Storage cost: " << fee << " coins per unit\n";
+        } else if (digital) {
+            cout << "Transaction fee: " << fee << " coins per unit\n";
+        }
+        cout << "Total per unit: " << std::fixed << std::setprecision(2) << totalPricePerUnit << " coins\n";
+    }
     cout << "You can afford up to " << maxAffordable << " units. \n";
     cout << "Quantity to buy: ";
 
@@ -133,17 +151,21 @@ void handleBuy(Commodity* item, int &coins){
             return;    
         }
 
-        double cost = price * qty;
+        double cost = totalPricePerUnit * qty;
         if (cost>coins)
         {
-            cout<<"Not enough coins (Need "<<std::fixed<<std::setprecision(2)<<cost<<", have "<<coins<<coins<<").\n";
+            cout<<"Not enough coins (Need "<<std::fixed<<std::setprecision(2)<<cost<<", have "<<coins<<").\n";
             return;
         }
         coins -= cost;
         item->set_quantityOwned(item->get_quantityOwned() + qty);
         cout << "Bought " << qty << " " << item->get_name() 
-        << " for " << std::fixed << std::setprecision(2) << cost 
-        << " coins. Remaining: " << coins << " coins.\n";
+        << " for " << std::fixed << std::setprecision(2) << (price * qty);
+        if (fee > 0) {
+            cout << " + " << (fee * qty) << " coins in fees";
+        }
+        cout << " = " << std::fixed << std::setprecision(2) << cost << " coins total.\n"
+        << "Remaining: " << coins << " coins.\n";
 
     }
 
@@ -157,9 +179,22 @@ void handleBuy(Commodity* item, int &coins){
             return;
         }
         
-            cout << "Current price: " << std::fixed << std::setprecision(2) << price << "\n";
-    cout << "You own: " << owned << " units\n";
-    cout << "Quantity to sell (or 'all' to sell everything): ";
+        // Calculate fees based on commodity type
+        int fee = 0;
+        PhysicalCommodities* physical = dynamic_cast<PhysicalCommodities*>(item);
+        DigitalCommodities* digital = dynamic_cast<DigitalCommodities*>(item);
+        
+        if (digital) {
+            fee = digital->get_transactionFee();
+        }
+        
+        cout << "Current price: " << std::fixed << std::setprecision(2) << price << "\n";
+        if (fee > 0) {
+            cout << "Transaction fee: " << fee << " coins per unit\n";
+            cout << "Net per unit: " << std::fixed << std::setprecision(2) << (price - fee) << " coins\n";
+        }
+        cout << "You own: " << owned << " units\n";
+        cout << "Quantity to sell (or 'all' to sell everything): ";
     
     string input;
     cin >> input;
@@ -189,12 +224,19 @@ void handleBuy(Commodity* item, int &coins){
     }
 
     double revenue = price * qty;
+    double totalFees = fee * qty;
+    double netRevenue = revenue - totalFees;
+    
     item->set_quantityOwned(owned-qty);
-    coins += revenue;
+    coins += netRevenue;
 
     cout << "Sold " << qty << " " << item->get_name()
-    << " for " << std::fixed << std::setprecision(2) << revenue 
-    << " coins. Total coins now: " << coins << "\n";
+    << " for " << std::fixed << std::setprecision(2) << revenue << " coins";
+    if (totalFees > 0) {
+        cout << " - " << std::fixed << std::setprecision(2) << totalFees << " coins in fees";
+    }
+    cout << " = " << std::fixed << std::setprecision(2) << netRevenue << " coins received.\n"
+    << "Total coins now: " << coins << "\n";
     }
 
     void showCommodityDetail(Commodity* item, int &coins, Commodity* commodities[], int n, int &day){
@@ -285,6 +327,18 @@ void handleBuy(Commodity* item, int &coins){
                 commodities[i]->Update();
             }
             day++;
+            // Deduct storage costs for physical commodities
+            for (int i = 0; i < n; i++){
+                PhysicalCommodities* physical = dynamic_cast<PhysicalCommodities*>(commodities[i]);
+                if (physical) {
+                    int storageCost = physical->get_storageCost() * physical->get_quantityOwned();
+                    coins -= storageCost;
+                    if (storageCost > 0) {
+                        cout << "Storage cost for " << physical->get_name() << ": " 
+                             << storageCost << " coins\n";
+                    }
+                }
+            }
         }
         else if (command == "commodity")
         {

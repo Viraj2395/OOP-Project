@@ -48,6 +48,7 @@ using namespace std;
                 // SDE dS = Mu * St * dt + Sigma * St * dWt
                 double dS = mu * this->prices[29] * 1 + sigma * this->prices[29] * dWt;
 
+            // moves all the prices down by a day
             for (int i = 0; i < 29; i++)
             {
                 this->prices[i] = this->prices[i+1];
@@ -59,75 +60,93 @@ using namespace std;
     }
 
     void Commodity::MakeGraph(){
-    double maxValue = this->prices[0];
-    for (int i = 1; i < 30; i++)
-    {
-        if(this->prices[i]>maxValue){
-            maxValue = this->prices[i];
+        // Calculate the max value to calculate the yvalues to scale all the data points for the graph
+        double maxValue = this->prices[0];
+        for (int i = 1; i < 30; i++)
+        {
+            if(this->prices[i]>maxValue){
+                maxValue = this->prices[i];
+            }
         }
-    }
 
-    int yValues[30];
-    for (int i = 0; i < 30; i++){
-        yValues[i]=this->prices[i]/maxValue * 15;
-    }    
-
-
-    int lenG = 100;
-
-    std::cout<<"┌";    
-
-    for (int i = 0; i < lenG; i++)
-    {
-        std::cout<<"─";
-    }
-    
-    std::cout<<"┐\n";
+        int yValues[30];
+        for (int i = 0; i < 30; i++){
+            yValues[i]=this->prices[i]/maxValue * 15;
+        }    
 
 
-    for(int k=0; k<15; k++){
+        int lenG = 100;
+
+        // Draws The graph
+        // Draws the Top line
+        std::cout<<"┌";    
+
+        for (int i = 0; i < lenG; i++)
+        {
+            std::cout<<"─";
+        }
+        
+        std::cout<<"┐\n";
+
+        // Draws the side borders
         std::cout<<"|";
-        for (int j = 0; j < 6; j++)
+        for (int i = 0; i < 44; i++)
         {
             std::cout<<" ";
         }
 
-        if(yValues[0]==15-k){
-            std::cout<<"*";
-        }
-        else{
+        //Creates a title
+        std::cout<<"Day vs Price";
+        for (int i = 0; i < 44; i++)
+        {
             std::cout<<" ";
-        }
+        }    
+        std::cout<<"|\n";
 
-        for(int i = 1; i<30; i++){
-            std::cout<<"  ";
-            if(yValues[i]==15-k){
+        // Draws the data points
+        for(int k=0; k<15; k++){
+            std::cout<<"|";
+            for (int j = 0; j < 6; j++)
+            {
+                std::cout<<" ";
+            }
+
+            if(yValues[0]==15-k){
                 std::cout<<"*";
             }
             else{
                 std::cout<<" ";
-            }            
+            }
+
+            for(int i = 1; i<30; i++){
+                std::cout<<"  ";
+                if(yValues[i]==15-k){
+                    std::cout<<"*";
+                }
+                else{
+                    std::cout<<" ";
+                }            
+            }
+
+
+            for (int j = 0; j < 6; j++)
+            {
+                std::cout<<" ";
+            }
+
+
+            std::cout<<"|\n";
         }
 
+        // Draws the bottom line
+        std::cout<<"└";    
 
-        for (int j = 0; j < 6; j++)
+        for (int i = 0; i < lenG; i++)
         {
-            std::cout<<" ";
+            std::cout<<"─";
         }
-
-
-        std::cout<<"|\n";
-    }
-
-
-    std::cout<<"└";    
-
-    for (int i = 0; i < lenG; i++)
-    {
-        std::cout<<"─";
-    }
-    
-    std::cout<<"┘\n";
+        
+        std::cout<<"┘\n";
 
     }
 
