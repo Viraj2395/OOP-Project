@@ -70,7 +70,7 @@ int main(){
     std::cout<<"┐\n";
 
 
-    for(int k=0; k<15; k++){
+    for(int k=1; k<16; k++){
         std::cout<<"|";
         for (int j = 0; j < lenG; j++)
         {
