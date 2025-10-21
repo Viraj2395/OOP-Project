@@ -1,14 +1,10 @@
-#include "Game.h"
-#include "Commodity.h"
 #include <iostream>
 #include <cmath>
 #include <iomanip>
 #include "Crypto.h"
-#include "DigitalCommodities.h"
 #include "Game.h"
 #include "Gems.h"
 #include "Harvest.h"
-#include "PhysicalCommodities.h"
 #include <cstdlib> 
 #include <fstream> 
 //is change day and set day the same thing 
