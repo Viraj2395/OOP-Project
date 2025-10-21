@@ -10,7 +10,7 @@ using namespace std;
         this->season="";
     }
 
-    Harvest::Harvest(string season, int storageCost, int quantityOwned, string name, string type):PhysicalCommodities(storageCost, quantityOwned, name, type, {100,0.015, 0.07}){
+    Harvest::Harvest(string season, int storageCost, int quantityOwned, string name, string type):PhysicalCommodities(storageCost, quantityOwned, name, type, (double[3]){100,0.015, 0.07}){
         this->season=season;
     }
 

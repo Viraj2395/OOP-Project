@@ -59,7 +59,37 @@ using namespace std;
     }
 
     void Commodity::MakeGraph(){
-        //make graph using prices array
+        int lenG = 100;
+
+        std::cout<<"┌";    
+
+        for (int i = 0; i < lenG; i++)
+        {
+            std::cout<<"─";
+        }
+        
+        std::cout<<"┐\n";
+
+
+        for(int k=0; k<15; k++){
+            std::cout<<"|";
+            for (int j = 0; j < lenG; j++)
+            {
+                std::cout<<" ";
+            }
+            std::cout<<"|\n";
+        }
+
+
+        std::cout<<"└";    
+
+        for (int i = 0; i < lenG; i++)
+        {
+            std::cout<<"─";
+        }
+        
+        std::cout<<"┘\n";
+
     }
 
     //getters

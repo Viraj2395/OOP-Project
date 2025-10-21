@@ -1,7 +1,5 @@
 #include <iostream>
 #include <random>
-#include <matplot/matplot.h>
-using namespace matplot;
 
 int main(){
     // St = Prices at time t. S is varialbe for Price dependant on varialbe t
@@ -41,6 +39,36 @@ int main(){
         std::cout<< prices[i] << "\n";
     }
 
+    int lenG = 100;
+
+    std::cout<<"┌";    
+
+    for (int i = 0; i < lenG; i++)
+    {
+        std::cout<<"─";
+    }
+    
+    std::cout<<"┐\n";
+
+
+    for(int k=0; k<15; k++){
+        std::cout<<"|";
+        for (int j = 0; j < lenG; j++)
+        {
+            std::cout<<" ";
+        }
+        std::cout<<"|\n";
+    }
+
+
+    std::cout<<"└";    
+
+    for (int i = 0; i < lenG; i++)
+    {
+        std::cout<<"─";
+    }
+    
+    std::cout<<"┘\n";
 
 
     return(0);

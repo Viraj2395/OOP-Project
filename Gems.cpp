@@ -10,7 +10,7 @@ using namespace std;
         this->economicCycle="";
     }
 
-    Gems::Gems(string economicCycle, int storageCost, int quantityOwned, string name, string type):PhysicalCommodities(storageCost, quantityOwned, name, type, {1000,0.03, 0.15}){
+    Gems::Gems(string economicCycle, int storageCost, int quantityOwned, string name, string type):PhysicalCommodities(storageCost, quantityOwned, name, type, (double[3]){1000,0.03, 0.15}){
         this->economicCycle=economicCycle;
     }
 
