@@ -17,8 +17,10 @@ using namespace std;
     void Gems::Update(){
         if (prices == nullptr) return; 
         
+        // Expected Upward Trend
         double mu = 0.03;
 
+        // Expected Randomness
         double sigma = 0.15;
 
         std::random_device rd;  
@@ -29,14 +31,17 @@ using namespace std;
 
         double dWt = dist(gen);
 
+        // Change from day to day
         double dS = mu * this->prices[29] * 1 + sigma * this->prices[29] * dWt;        
 
+        // Move all the prices down a day
         for(int i = 0; i < 29; i++){
             this->prices[i] = this->prices[i+1];          
         }
         this->prices[29] += dS;
         }
 
+    // Getters and Setters
     string Gems::get_economicCycle(){
         return economicCycle;
     }
