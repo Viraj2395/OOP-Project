@@ -16,8 +16,10 @@ using namespace std;
     void Crypto::Update(){
         if (prices == nullptr) return; 
         
+        // Expected Upward Trend
         double mu = 0.05;
 
+        // Expected Randomness
         double sigma = 0.4;
 
         std::random_device rd;  
@@ -28,8 +30,10 @@ using namespace std;
 
         double dWt = dist(gen);
 
+        // Change from day to day
         double dS = mu * this->prices[29] * 1 + sigma * this->prices[29] * dWt;        
 
+        // Move prices down a day
         for(int i = 0; i < 29; i++){
             this->prices[i] = this->prices[i+1];          
         }

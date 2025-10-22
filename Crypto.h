@@ -16,6 +16,7 @@ class Crypto: public DigitalCommodities{
 
     void Update();
 
+    // Getters and Setters
     string get_trend();
     void set_trend(string trend);    
 };

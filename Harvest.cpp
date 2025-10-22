@@ -17,8 +17,10 @@ using namespace std;
     void Harvest::Update(){
         if (prices == nullptr) return; 
 
+        // Expected Upwards Trend
         double mu = 0.015;
 
+        // Expected Randomness
         double sigma = 0.07;
 
         std::random_device rd;  
@@ -29,14 +31,17 @@ using namespace std;
 
         double dWt = dist(gen);
 
+        // Change From Day to Day
         double dS = mu * this->prices[29] * 1 + sigma * this->prices[29] * dWt;        
 
+        // Move all the prices down
         for(int i = 0; i < 29; i++){
             this->prices[i] = this->prices[i+1];          
         }
         this->prices[29] += dS;
-        }
+    }
 
+    // Setters and Getters
     string Harvest::get_season(){
         return season;
     }
