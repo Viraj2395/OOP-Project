@@ -13,6 +13,7 @@
 
 using namespace std;
 
+// Pre-declaration of functions
 void saveGame(const string& filename, int coins, int day, Commodity* commodities[], int n);
 void loadGame(const string& filename, int& coins, int& day, Commodity* commodities[], int n);
 void print_market_table(Commodity* commodities[], int n, int coins, int day);
@@ -37,6 +38,7 @@ void clearScreen(){
     #endif
 }
 
+// Function for portfolio
 void showPortfolio(Commodity* commodities[], int n, int coins){
     double totalValue = coins;
 
@@ -69,6 +71,7 @@ void showPortfolio(Commodity* commodities[], int n, int coins){
     cout << "Total Portfolio Value: " << std::fixed << std::setprecision(2) << totalValue << " coins\n";
 }
   
+// Function when you run help Command
 void showHelp() {
     cout << "\n=== TRADING GAME HELP ===\n";
     cout << "Available Commands:\n";
@@ -87,6 +90,7 @@ void showHelp() {
     cout << "- Manage your risk by diversifying investments\n";
 }
 
+// Handles Buy commands
 void handleBuy(Commodity* item, int &coins){
     double price = item->get_prices()[29];
     
@@ -124,6 +128,7 @@ void handleBuy(Commodity* item, int &coins){
     cout << "You can afford up to " << maxAffordable << " units. \n";
     cout << "Quantity to buy: ";
 
+    //Taking string as an input
     string input;
     cin >> input;
 
@@ -169,6 +174,7 @@ void handleBuy(Commodity* item, int &coins){
 
     }
 
+    //Function to handle sell function
     void handleSell(Commodity* item, int& coins){
         double price = item->get_prices()[29];
         int owned = item->get_quantityOwned();
@@ -203,6 +209,7 @@ void handleBuy(Commodity* item, int &coins){
     if (input == "all") {
         qty = owned;
     } else {
+        // Try and catch for execption handling 
         try {
             qty = stoi(input);
         } catch (...) {
@@ -239,6 +246,8 @@ void handleBuy(Commodity* item, int &coins){
     << "Total coins now: " << coins << "\n";
     }
 
+
+    //This function will show all the details of commodities like price and changes
     void showCommodityDetail(Commodity* item, int &coins, Commodity* commodities[], int n, int &day){
         while (true)
         {
@@ -287,6 +296,7 @@ void handleBuy(Commodity* item, int &coins){
         
     }    
 
+    //This function will handle Input errors in Commodity menu
     void handleCommodityMenu(Commodity* commodities[], int n, int& coins, int& day){
         cout << "\nAvailable Commodities:\n";
     for (int i = 0; i < n; ++i) {
@@ -319,6 +329,8 @@ void handleBuy(Commodity* item, int &coins){
     int idx = choice - 1;
     showCommodityDetail(commodities[idx], coins, commodities, n, day);
 }
+
+    //Handle all ther commands
     void handleCommand(const string& command, Commodity* commodities[], int n, int& coins, int& day){
         if (command == "next")
         {
@@ -386,6 +398,7 @@ void handleBuy(Commodity* item, int &coins){
 
     
 
+    //Function to save game details like portfolio
     void saveGame(const string& filename, int coins, int day, Commodity* commodities[], int n) {
     ofstream file(filename);
     
@@ -407,6 +420,7 @@ void handleBuy(Commodity* item, int &coins){
     cout << "Game saved successfully!\n";
 }
 
+    //Function to load saved game
     void loadGame(const string& filename, int& coins, int& day, Commodity* commodities[], int n) {
     ifstream file(filename);
     
